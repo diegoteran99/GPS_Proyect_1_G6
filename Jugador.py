@@ -7,4 +7,4 @@ class Jugador:
         self.fichas.append(ficha)
         
     def mostrar_fichas(self):
-        print(f"Fichas de {self.nombre}: {self.fichas}")
+        print(f"{self.nombre}: {self.fichas}")
