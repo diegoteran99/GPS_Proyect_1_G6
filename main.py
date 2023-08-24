@@ -4,6 +4,12 @@ fichas = ["[0;0]", "[1;1]", "[2;2]", "[3;3]", "[4;4]", "[5;5]", "[6;6]", "[0;1]"
 chanchos = ["[6;6]", "[5;5]", "[4;4]", "[3;3]", "[2;2]", "[1;1]", "[0;0]"]
 random.shuffle(fichas)
 
+def turno(posicion, ronda, cantJugadores):
+    if posicion + ronda != 0:
+        return (posicion + ronda) % cantJugadores
+    else:
+        return posicion
+
 jugadores = []
 #-----Crear jugadores y sus fichas
 cantidadJugadores = int(input("Ingrese la cantidad de jugadores entre 2 y 14: "))
@@ -15,9 +21,10 @@ if cantidadJugadores >= 2 and cantidadJugadores <= 14:
             ficha = fichas.pop()
             nuevoJugador.agregar_ficha(ficha)
         jugadores.append(nuevoJugador)
-
+print("")
 for i in jugadores:
     i.mostrar_fichas()
+print("")
 #--------- 
 
 encontrado = False  
@@ -41,23 +48,36 @@ juego = []
 #while finalizado != True:
     
 ###--------Primera jugada
-jugadorActual = jugadores[turnoJugador + ronda]
-
+jugadorActual = jugadores[turno(turnoJugador,ronda,cantidadJugadores)]
 mostrarJugador = jugadorActual.mostrar_fichas()
 input("")
 fichaJugada = ficha
 jugadorActual.fichas.remove(fichaJugada)
 juego.append(fichaJugada)
 print(f"juego: {juego}")
-jugadorActual.mostrar_fichas()
+input("")
 ronda += 1
 
 ###-----
 
+###----Segunda jugada
+jugadorActual = jugadores[turno(turnoJugador,ronda,cantidadJugadores)]
+mostrarJugador = jugadorActual.mostrar_fichas()
+input("")
+numeroFicha = juego[0][1]
+print(numeroFicha)
+for ficha in jugadorActual.fichas:
+    if juego[0][1] in ficha:
+        if ficha[3] == numeroFicha:
+            fichaJugada = f"[{ficha[3]};{ficha[1]}]"
+        else:
+            fichaJugada = ficha
+        jugadorActual.fichas.remove(ficha)
+        juego.append(fichaJugada)
+        break
+print(f"juego: {juego}")
+input("")
+ronda += 1
+###---------
 
-while finalizado != True:
-    jugadorActual = jugadores[turnoJugador + ronda]
-    mostrarJugador = jugadorActual.mostrar_fichas()
-    input("")
-    #Función para ver que ficha del jugador puede poner
 
