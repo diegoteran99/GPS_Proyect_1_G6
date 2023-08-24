@@ -9,6 +9,3 @@ class Jugador:
     def mostrar_fichas(self):
         print(f"{self.nombre}: {self.fichas}")
         
-    
-        
-        
