@@ -37,7 +37,7 @@ for chancho in chanchos:
         for ficha in jugador.fichas:
             if chancho == ficha:
                 turnoJugador = jugadores.index(jugador)
-                print(f"Parte el {jugador.nombre} tiene el chancho {ficha}")
+                print(f"Parte el {jugador.nombre} tiene el chancho {ficha[1]}")
                 input("")
                 encontrado = True  
                 break  
@@ -45,7 +45,6 @@ for chancho in chanchos:
 finalizado = False
 ronda = 0
 juego = []
-#while finalizado != True:
     
 ###--------Primera jugada
 jugadorActual = jugadores[turno(turnoJugador,ronda,cantidadJugadores)]
@@ -67,7 +66,7 @@ input("")
 numeroFicha = juego[0][1]
 print(numeroFicha)
 for ficha in jugadorActual.fichas:
-    if juego[0][1] in ficha:
+    if numeroFicha in ficha:
         if ficha[3] == numeroFicha:
             fichaJugada = f"[{ficha[3]};{ficha[1]}]"
         else:
@@ -80,4 +79,33 @@ input("")
 ronda += 1
 ###---------
 
-
+###---Resto jugadas
+while finalizado != True:
+    jugadorActual = jugadores[turno(turnoJugador,ronda,cantidadJugadores)]
+    mostrarJugador = jugadorActual.mostrar_fichas()
+    input("")
+    primeraFicha = juego[0]
+    ultimaFicha = juego[-1]
+    for ficha in jugadorActual.fichas:
+        if ultimaFicha[3] in ficha:
+            if ficha[3] == ultimaFicha[3]:
+                fichaJugada = f"[{ficha[3]};{ficha[1]}]"
+            else:
+                fichaJugada = ficha
+            jugadorActual.fichas.remove(ficha)
+            juego.append(fichaJugada)
+            break
+        if primeraFicha[1] in ficha:
+            if ficha[1] == primeraFicha[1]:
+                fichaJugada = f"[{ficha[3]};{ficha[1]}]"
+            else:
+                fichaJugada = ficha
+            jugadorActual.fichas.remove(ficha)
+            juego.insert(0,fichaJugada)
+            break
+    print(f"juego: {juego}")
+    input("")
+    ronda += 1
+        
+#falta agregar cuando pierden
+        
