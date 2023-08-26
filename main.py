@@ -54,9 +54,13 @@ print(f"juego: {juego}")
 input("")
 ronda += 1
 ###-----
-
+skippedCount=0
 ###---Resto jugadas
 while finalizado != True:
+    if skippedCount == cantidadJugadores:
+        finalizado = True
+        print("Fin del juego")
+        break
     jugadorActual = jugadores[turno_actual(turnoJugador,ronda,cantidadJugadores)]
     mostrarJugador = jugadorActual.mostrar_fichas()
     input("")
@@ -69,6 +73,11 @@ while finalizado != True:
                 fichaJugada = ficha
             jugadorActual.fichas.remove(ficha)
             juego.append(fichaJugada)
+            if jugadorActual.fichas == []:
+                finalizado = True
+                print(f"Fin del juego, ganador {jugadorActual.nombre}")
+                break
+            skippedCount=0
             break
         if primeraFicha[1] in ficha:
             if ficha[1] == primeraFicha[1]:
@@ -77,6 +86,16 @@ while finalizado != True:
                 fichaJugada = ficha
             jugadorActual.fichas.remove(ficha)
             juego.insert(0,fichaJugada)
+            if jugadorActual.fichas == []:
+                finalizado = True
+                print(f"Fin del juego, ganador {jugadorActual.nombre}")
+                break
+            skippedCount=0
+            break
+        if ultimaFicha[3] not in ficha and primeraFicha[1] not in ficha:
+            fichaJugada = "paso"
+            print (f"{jugadorActual.nombre} paso")
+            skippedCount+=1
             break
     print(f"juego: {juego}")
     input("")
