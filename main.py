@@ -7,7 +7,15 @@ random.shuffle(fichas)
 finalizado = False
 ronda = 0
 juego = []
-    
+
+
+def mostrar_fichas(fichas):
+    fichasString = ""
+    for ficha in fichas:
+        fichasString += f"{ficha} "
+    print(fichasString)
+
+
 def turno_actual(posicion, ronda, cantJugadores):
     if posicion + ronda != 0:
         return (posicion + ronda) % cantJugadores
@@ -61,7 +69,8 @@ input("")
 fichaJugada = ficha
 jugadorActual.fichas.remove(fichaJugada)
 juego.append(fichaJugada)
-print(f"juego: {juego}")
+print(f"juego:")
+mostrar_fichas(juego)
 input("")
 ronda += 1
 ###-----
@@ -107,7 +116,8 @@ while finalizado != True:
         skippedCount += 1
 
 
-    print(f"juego: {juego}")
+    print(f"juego:")
+    mostrar_fichas(juego)
     input("")
     ronda += 1     
 #falta agregar cuando pierden
