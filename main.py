@@ -16,15 +16,19 @@ def turno_actual(posicion, ronda, cantJugadores):
 
 jugadores = []
 #-----Crear jugadores y sus fichas
-cantidadJugadores = int(input("Ingrese la cantidad de jugadores entre 2 y 14: "))
-if cantidadJugadores >= 2 and cantidadJugadores <= 14:
-    cantidadFichasJugador = len(fichas) // cantidadJugadores
-    for i in range(cantidadJugadores):
-        nuevoJugador = Jugador(f"Jugador {i + 1}")
-        for i in range(cantidadFichasJugador):
-            ficha = fichas.pop()
-            nuevoJugador.agregar_ficha(ficha)
-        jugadores.append(nuevoJugador)
+while True:
+    inputValue = input("Ingrese la cantidad de jugadores entre 2 y 14: ")
+    if inputValue.isnumeric():
+        cantidadJugadores = int(inputValue)
+        if cantidadJugadores >= 2 and cantidadJugadores <= 14:
+            cantidadFichasJugador = len(fichas) // cantidadJugadores
+            for i in range(cantidadJugadores):
+                nuevoJugador = Jugador(f"Jugador {i + 1}")
+                for i in range(cantidadFichasJugador):
+                    ficha = fichas.pop()
+                    nuevoJugador.agregar_ficha(ficha)
+                jugadores.append(nuevoJugador)
+            break
 print("")
 #--------- 
 
