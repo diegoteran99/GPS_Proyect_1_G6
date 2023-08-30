@@ -24,12 +24,19 @@ while True:
             cantidadFichasJugador = len(fichas) // cantidadJugadores
             for i in range(cantidadJugadores):
                 nuevoJugador = Jugador(f"Jugador {i + 1}")
-                for i in range(cantidadFichasJugador):
+                for _ in range(cantidadFichasJugador):
                     ficha = fichas.pop()
                     nuevoJugador.agregar_ficha(ficha)
                 jugadores.append(nuevoJugador)
             break
+        else:
+            print("Cantidad de jugadores fuera de rango.")
+    else:
+        print("Entrada inválida. Debe ingresar un número válido.")
 print("")
+
+# Resto del código...
+
 #--------- 
 
 encontrado = False  
@@ -77,30 +84,29 @@ while finalizado != True:
                 fichaJugada = ficha
             jugadorActual.fichas.remove(ficha)
             juego.append(fichaJugada)
-            if jugadorActual.fichas == []:
+            if not jugadorActual.fichas:
                 finalizado = True
                 print(f"Fin del juego, ganador {jugadorActual.nombre}")
-                break
-            skippedCount=0
+            skippedCount = 0
             break
-        if primeraFicha[1] in ficha:
+        elif primeraFicha[1] in ficha:
             if ficha[1] == primeraFicha[1]:
                 fichaJugada = f"[{ficha[3]};{ficha[1]}]"
             else:
                 fichaJugada = ficha
             jugadorActual.fichas.remove(ficha)
-            juego.insert(0,fichaJugada)
-            if jugadorActual.fichas == []:
+            juego.insert(0, fichaJugada)
+            if not jugadorActual.fichas:
                 finalizado = True
                 print(f"Fin del juego, ganador {jugadorActual.nombre}")
-                break
-            skippedCount=0
+            skippedCount = 0
             break
-        if ultimaFicha[3] not in ficha and primeraFicha[1] not in ficha:
-            fichaJugada = "paso"
-            print (f"{jugadorActual.nombre} paso")
-            skippedCount+=1
-            break
+    else:
+        fichaJugada = "paso"
+        print(f"{jugadorActual.nombre} pasa")
+        skippedCount += 1
+
+
     print(f"juego: {juego}")
     input("")
     ronda += 1     
