@@ -43,24 +43,35 @@ while True:
         print("Entrada inválida. Debe ingresar un número válido.")
 print("")
 
-# Resto del código...
 
 #--------- 
 
-encontrado = False  
-for chancho in chanchos:
-    if encontrado:
-        break  
+encontrado_chancho = False
+for valor_chancho in range(6, 0, -1):
     for jugador in jugadores:
-        if encontrado:
-            break  
         for ficha in jugador.fichas:
-            if chancho == ficha:
+            if f"[{valor_chancho};{valor_chancho}]" == ficha:
                 turnoJugador = jugadores.index(jugador)
-                print(f"Parte el {jugador.nombre} tiene el chancho {ficha[1]}")
-                input("")
-                encontrado = True  
-                break  
+                print(f"Parte el {jugador.nombre} tiene el chancho [{valor_chancho};{valor_chancho}]")
+                encontrado_chancho = True
+                break
+        if encontrado_chancho:
+            break
+    if encontrado_chancho:
+        break
+
+
+if not encontrado_chancho:
+    max_suma = 0
+    for jugador in jugadores:
+        suma_fichas = sum(int(ficha[1]) for ficha in jugador.fichas)
+        if suma_fichas > max_suma:
+            turnoJugador = jugadores.index(jugador)
+            max_suma = suma_fichas
+        elif suma_fichas == max_suma:
+            if len(jugador.fichas) > len(jugadores[turnoJugador].fichas):
+                turnoJugador = jugadores.index(jugador)
+    print(f"Parte el {jugadores[turnoJugador].nombre} con la ficha más alta.")
             
 ###--------Primera jugada
 jugadorActual = jugadores[turno_actual(turnoJugador,ronda,cantidadJugadores)]
@@ -78,8 +89,9 @@ skippedCount=0
 ###---Resto jugadas
 while finalizado != True:
     if skippedCount == cantidadJugadores:
+        print("Fin del juego, no hay ganador")
         finalizado = True
-        print("Fin del juego")
+        
         break
     jugadorActual = jugadores[turno_actual(turnoJugador,ronda,cantidadJugadores)]
     mostrarJugador = jugadorActual.mostrar_fichas()
@@ -94,8 +106,9 @@ while finalizado != True:
             jugadorActual.fichas.remove(ficha)
             juego.append(fichaJugada)
             if not jugadorActual.fichas:
-                finalizado = True
                 print(f"Fin del juego, ganador {jugadorActual.nombre}")
+                finalizado = True
+                
             skippedCount = 0
             break
         elif primeraFicha[1] in ficha:
@@ -106,8 +119,9 @@ while finalizado != True:
             jugadorActual.fichas.remove(ficha)
             juego.insert(0, fichaJugada)
             if not jugadorActual.fichas:
-                finalizado = True
                 print(f"Fin del juego, ganador {jugadorActual.nombre}")
+                finalizado = True
+                
             skippedCount = 0
             break
     else:
